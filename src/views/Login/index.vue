@@ -44,30 +44,52 @@ export default {
     }
   },
   methods: {
-    backToPerPage() {},
+    backToPerPage() {
+      this.$router.back()
+    },
     async login() {
-      const res = await login(this.username, this.password)
+      // 非空判断
+      if (this.username.trim() === '' && this.password.trim() === '') {
+        return this.$toast('用户名和密码不能为空')
+      }
+      // 用户名匹配规则
+      const test = /^[a-zA-Z0-9]{5,8}$/
+      if (!this.username.match(test)) {
+        this.$toast('用户名格式5-8位的字母\n和数字')
+        return
+      }
+      // 发起请求
+      const res = login(this.username, this.password)
       // 加载中
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true,
         loadingType: 'spinner',
+        // 一直加载中
         duration: 0
       })
-      // 成功
-      if (res.data.status === 200) {
-        setTimeout(() => {
-          this.$toast.success('登录成功')
-        }, 300)
-        // 成功后存入token
-        localStorage.setItem('token', res.data.body.token)
-      }
-      // 失败
-      if (res.data.status !== 200) {
-        setTimeout(() => {
-          this.$toast(res.data.description)
-        }, 500)
-      }
+      res.then((res) => {
+        // 判断
+        if (res.data.status === 200) {
+          this.$toast.success({
+            message: '登录成功',
+            duration: 2000,
+            // 关闭时的回调函数
+            onClose: () => {
+              // 路由跳转
+              this.$router.push({ path: '/layout/my' })
+            }
+          })
+          // 成功后存入token
+          localStorage.setItem('token', res.data.body.token)
+        } else {
+          // 登录失败
+          setTimeout(() => {
+            this.$toast(res.data.description)
+          }, 500)
+        }
+        console.log(res)
+      })
     }
   }
 }
@@ -115,5 +137,8 @@ export default {
     font-size: 28px;
     color: #666;
   }
+}
+:deep(.van-toast) {
+  border-radius: 1px !important;
 }
 </style>

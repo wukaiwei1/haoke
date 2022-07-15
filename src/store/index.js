@@ -5,13 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // 房屋的code
+    houseCode: ''
   },
-  getters: {
-  },
+  // getters: {},
   mutations: {
+    getCode(state, payload) {
+      payload.desc = payload.desc.split('/')
+      state.houseCode = payload
+    }
   },
-  actions: {
-  },
-  modules: {
-  }
+  actions: {},
+  modules: {}
 })

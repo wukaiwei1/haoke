@@ -12,6 +12,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/multi-word-component-names': 'off',
     // 函数面前加空格
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    // 统一缩进
+    indent: 'off'
   }
 }
