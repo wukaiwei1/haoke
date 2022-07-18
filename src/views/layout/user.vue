@@ -22,7 +22,7 @@
       </template>
       <!-- nav插槽 -->
       <template #userNav>
-        <van-grid :column-num="3" :icon-size="26" >
+        <van-grid :column-num="3" :icon-size="26">
           <van-grid-item @click="favorites" icon="star-o" text="我的收藏" />
           <van-grid-item icon="wap-home-o" text="我的出租" />
           <van-grid-item icon="clock-o" text="看房记录" />
@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted() {
-    const token = localStorage.getItem('token')
+    const token = this.$store.state.token
     if (!token) {
       this.$toast('还没有登录,请登录开始租房之旅!')
     }
@@ -67,7 +67,7 @@ export default {
         .then(() => {
           this.$router.push({ path: '/login' })
           // 清空token
-          localStorage.removeItem('token')
+          this.$store.commit('setUser', '')
         })
         .catch(() => {
           // on cancel

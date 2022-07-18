@@ -26,7 +26,7 @@
     <!-- 导航栏部分 -->
     <van-grid :column-num="3" :icon-size="26">
       <!-- 导航栏插槽 -->
-      <slot name="userNav" >
+      <slot name="userNav">
         <van-grid-item
           v-for="(value, index) in 6"
           :key="value"
@@ -67,8 +67,8 @@ export default {
         ]
       },
       avatar: null,
-      nickname: '',
-      token: ''
+      nickname: ''
+      // token: ''
     }
   },
   methods: {
@@ -79,9 +79,10 @@ export default {
     }
   },
   mounted() {
-    this.token = localStorage.getItem('token')
-    if (this.token) {
-      const res = userInfo(this.token)
+    const token = this.$store.state.token
+
+    if (token) {
+      const res = userInfo(token)
       // 加载中
       this.$toast.loading({
         message: '加载中...',
@@ -96,9 +97,13 @@ export default {
           // 清除提示
           this.$toast.clear()
         } else {
+          this.$nextTick(() => {
+            // 清空token
+            this.$store.commit('setUser', '')
+            location.reload(true)
+          })
           // 登录失败
           setTimeout(() => {
-            this.token = null
             this.$toast(res.data.description)
           }, 500)
         }

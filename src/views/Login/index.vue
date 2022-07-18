@@ -80,15 +80,14 @@ export default {
               this.$router.push({ path: '/layout/my' })
             }
           })
-          // 成功后存入token
-          localStorage.setItem('token', res.data.body.token)
+          // 成功后在vuex中存入token
+          this.$store.commit('setUser', res.data.body.token)
         } else {
           // 登录失败
           setTimeout(() => {
-            this.$toast(res.data.description)
+            this.$toast(res.data.description, '1')
           }, 500)
         }
-        console.log(res)
       })
     }
   }

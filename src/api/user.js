@@ -9,20 +9,20 @@ export const login = (username, password) => {
   })
 }
 // 获取用户信息
-export const userInfo = (token) => {
+export const userInfo = () => {
   return request({
-    url: '/user',
-    headers: {
-      authorization: token
-    }
+    url: '/user'
+    // headers: {
+    //   authorization: token
+    // }
   })
 }
 // 获取收藏列表
-export const favorites = (token) => {
+export const favorites = () => {
   return request({
-    url: '/user/favorites',
-    headers: {
-      authorization: token
-    }
+    url: '/user/favorites'
+    // headers: {
+    //   authorization: token
+    // }
   })
 }

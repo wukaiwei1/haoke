@@ -32,20 +32,20 @@ export default {
     }
   },
   async mounted() {
-    const token = localStorage.getItem('token')
     try {
       // 加载中
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true,
-        loadingType: 'spinner', // 一直加载中
+        loadingType: 'spinner',
+        // 一直加载中
         duration: 0
       })
-      const res = await favorites(token)
+      // const res = await favorites(token)
+      const res = await favorites()
       this.favoritesList = res.data.body
       // 清除提示
       this.$toast.clear()
-      console.log(this.favoritesList)
     } catch (error) {}
   },
   methods: {
@@ -55,10 +55,9 @@ export default {
     },
     // 获取房屋code
     houseCode(code) {
-      const index = this.favoritesList.findIndex(
-        (item) => item.houseCode === code
-      )
-      this.$store.commit('getCode', this.favoritesList[index])
+      // 将房屋code值传入vuex中
+      this.$store.commit('getCode', code)
+      // 路由跳转页面
       this.$router.push('/house')
     }
   }
