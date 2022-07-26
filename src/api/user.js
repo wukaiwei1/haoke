@@ -26,3 +26,19 @@ export const favorites = () => {
     // }
   })
 }
+
+// 我的出租
+export const myHouse = () => {
+  return request({
+    url: '/user/houses'
+  })
+}
+
+// 发布房源
+export const newsHouse = (data) => {
+  return request({
+    url: '/user/houses',
+    method: 'POST',
+    data
+  })
+}

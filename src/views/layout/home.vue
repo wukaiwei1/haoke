@@ -13,8 +13,9 @@
     </van-swipe>
     <!-- 搜索部分 -->
     <div class="search">
-      <div>北京</div>
-      <van-icon name="arrow-down" />
+      <div class="city" @click="getCity">
+        {{ cityName }} <van-icon name="arrow-down" />
+      </div>
       <span></span>
       <van-search
         v-model="value"
@@ -32,14 +33,19 @@
         icon="browsing-history-o"
         text="地图找房"
       />
-      <van-grid-item class="navIcon" icon="home-o" text="去出租" />
+      <van-grid-item
+        class="navIcon"
+        icon="home-o"
+        text="去出租"
+        @click="$router.push('/addHouse')"
+      />
     </van-grid>
     <!-- 租房小组 -->
     <div class="more">
       <!-- 标题 -->
       <div class="title">
         <h4>租房小组</h4>
-        <button>更多</button>
+        <button @click="$router.push('/addHouse')">更多</button>
       </div>
       <div class="content">
         <van-row gutter="20">
@@ -57,18 +63,6 @@
               <p>{{ item.desc }}</p>
             </div>
           </van-col>
-          <!-- <van-col span="12">
-            <div class="pic"><img src="" alt="" /></div>
-            <div class="txt"></div>
-          </van-col>
-          <van-col span="12">
-            <div class="pic"><img src="" alt="" /></div>
-            <div class="txt"></div>
-          </van-col>
-          <van-col span="12">
-            <div class="pic"><img src="" alt="" /></div>
-            <div class="txt"></div>
-          </van-col> -->
         </van-row>
       </div>
     </div>
@@ -84,7 +78,9 @@ export default {
       picList: Array,
       value: '',
       // 租房小组
-      moreObj: []
+      moreObj: [],
+      // 当前城市
+      cityName: '北京'
     }
   },
   async mounted() {
@@ -94,7 +90,15 @@ export default {
     // 获取租房小组资源
     const getmore = await groups()
     this.moreObj = getmore.data.body
-    console.log(this.moreObj)
+    // 获取vuex中的城市名
+    this.$store.state.cityName
+      ? (this.cityName = this.$store.state.cityName.label)
+      : (this.cityName = '北京')
+  },
+  methods: {
+    getCity() {
+      this.$router.push('/cityList')
+    }
   }
 }
 </script>
@@ -149,6 +153,9 @@ export default {
   .van-cell {
     line-height: 1;
   }
+  .city {
+    padding-left: 20px;
+  }
   .van-search__content {
     background-color: transparent;
     // border-left: 1px solid #ccc;
@@ -159,7 +166,7 @@ export default {
   }
   .van-icon-arrow-down {
     margin-top: 3px;
-    transform: scale(0.6, 0.6);
+    transform: scale(1);
   }
   span {
     margin-top: 15px;

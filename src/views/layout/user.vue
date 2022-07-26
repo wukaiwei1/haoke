@@ -24,7 +24,7 @@
       <template #userNav>
         <van-grid :column-num="3" :icon-size="26">
           <van-grid-item @click="favorites" icon="star-o" text="我的收藏" />
-          <van-grid-item icon="wap-home-o" text="我的出租" />
+          <van-grid-item @click="myRent" icon="wap-home-o" text="我的出租" />
           <van-grid-item icon="clock-o" text="看房记录" />
           <van-grid-item icon="user-o" text="成为房主" />
           <van-grid-item icon="friends-o" text="个人资料" />
@@ -78,6 +78,10 @@ export default {
       this.$router.push({
         path: '/favorites'
       })
+    },
+    // 我的出租
+    myRent() {
+      this.$router.push({ path: '/myrent' })
     }
   }
 }

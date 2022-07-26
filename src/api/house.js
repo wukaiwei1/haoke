@@ -28,3 +28,11 @@ export const removeHouse = (code) => {
     method: 'DELETE'
   })
 }
+
+// 发布房屋需要的条件
+
+export const setHouseInfo = () => {
+  return request({
+    url: '/houses/params'
+  })
+}

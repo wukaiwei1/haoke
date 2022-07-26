@@ -5,8 +5,8 @@
       :title="(houseList && houseList.community) || '暂无信息'"
       @click-left="backToPerPage"
     >
-      <template v-slot:left>
-        <van-icon name="arrow-left" color="#fff" />
+      <template #left>
+        <van-icon name="arrow-left" color="#fff"></van-icon>
       </template>
     </van-nav-bar>
     <!-- 图片 -->
@@ -63,7 +63,10 @@
     <div class="HouseDetail_map">
       <h4>小区:天山星城</h4>
       <!-- 地图 -->
-      <div class="map"></div>
+      <baidu-map class="map" center="周口"></baidu-map>
+      <!-- :lng="(info && info.coord && info.coord.latitude) || ''"
+        :lat="(info && info.coord && info.coord.longitude) || ''" -->
+      <!-- <div class="map"></div> -->
       <!-- 房屋配套 -->
       <van-cell-group class="houseTit">
         <van-cell title="房源配套" class="title" />
@@ -89,7 +92,7 @@
           <img src="../../../assets/image/houserUser.png" alt="" />
           <div class="wang">
             <span>王女士</span>
-            <p><van-icon name="shield-o" />已认证房东</p>
+            <p><van-icon name="shield-o"></van-icon>已认证房东</p>
           </div>
         </van-col>
         <van-col span="12" class="faxiaoxi">
@@ -157,7 +160,7 @@ export default {
   data() {
     return {
       houseList: '',
-      // 房屋配套初始值
+        // 房屋配套初始值
       house: [
         { name: '衣柜', icon: 'icon-yigui' },
         { name: '洗衣机', icon: 'icon-xiyiji' },
@@ -170,10 +173,10 @@ export default {
         { name: '宽带', icon: 'icon-kuandai' },
         { name: '沙发', icon: 'icon-shafa' }
       ],
-      // 接收房屋配套数据
-      houseIcon: [],
       // 最终渲染的房屋配套数据
       info: [],
+      // 接收房屋配套数据
+      houseIcon: [],
       isFavorite: null
       // 收藏||取消收藏
       // isHouse: true
@@ -193,6 +196,7 @@ export default {
       const code = this.$store.state.houseCode
       // 获取房屋数据
       const res = await getHouse(code)
+      console.log(res)
       // 清除提示
       this.$toast.clear()
       // 渲染数据

@@ -14,6 +14,8 @@ module.exports = {
     // 函数面前加空格
     'space-before-function-paren': 'off',
     // 统一缩进
-    indent: 'off'
+    indent: 'off',
+    // v-model
+    'vue/no-v-model-argument': 'off'
   }
 }

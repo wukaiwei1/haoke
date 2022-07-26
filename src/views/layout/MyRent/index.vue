@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 标题 -->
-    <van-nav-bar  title="收藏列表" @click-left="backToPerPage">
+    <van-nav-bar title="房屋管理" @click-left="backToPerPage">
       <template v-slot:left>
         <van-icon name="arrow-left" color="#fff" />
       </template>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { favorites } from '@/api/user'
+import { myHouse } from '@/api/user'
 export default {
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
         // 一直加载中
         duration: 0
       })
-      const res = await favorites()
+      const res = await myHouse()
       this.favoritesList = res.data.body
       console.log(this.favoritesList)
       // 清除提示
@@ -68,7 +68,7 @@ export default {
 // 标题部分
 :deep(.van-nav-bar__content) {
   background-color: #21b97a;
-  margin-bottom: 42px;
+  margin-bottom: 22px;
   .van-nav-bar__title {
     color: #fff;
   }

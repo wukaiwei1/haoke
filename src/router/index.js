@@ -45,6 +45,26 @@ const routes = [
   {
     path: '/house',
     component: () => import('@/views/layout/favorites/house.vue')
+  },
+  // 我的出租
+  {
+    path: '/myrent',
+    component: () => import('@/views/layout/MyRent')
+  },
+  // 城市列表
+  {
+    path: '/cityList',
+    component: () => import('@/views/layout/cityList')
+  },
+  // 发布房源
+  {
+    path: '/addHouse',
+    component: () => import('@/views/layout/newsHouse')
+  },
+  // 搜索小区
+  {
+    path: '/cllSearch',
+    component: () => import('@/views/layout/newsHouse/cellSearch')
   }
 ]
 

@@ -9,7 +9,16 @@ export default new Vuex.Store({
     // 房屋的code
     houseCode: '',
     // token
-    token: GetToken() || ''
+    token: GetToken() || '',
+    // // 拿到点击城市名字
+    cityName: '' || {
+      label: '北京',
+      pinyin: 'beijing',
+      short: 'bj',
+      value: 'AREA|88cff55c-aaa4-e2e0'
+    },
+    // 小区数据
+    Community: ''
   },
   // getters: {},
   mutations: {
@@ -22,6 +31,14 @@ export default new Vuex.Store({
       // console.log(payload)
       state.token = payload
       SetToken(payload)
+    },
+    // 获取城市名字
+    setCityName(state, payload) {
+      state.cityName = payload
+    },
+    // 获取小区名字
+    setCommunityName(state, payload) {
+      state.Community = payload
     }
   }
   // actions: {},
